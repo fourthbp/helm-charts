@@ -14,8 +14,7 @@ spec:
   port: {{ .Values.port }}
   {{- end }}
   {{- if .Values.instances }}
-  instances:
-{{ toYaml .Values.instances | indent 4 }}
+  instances: {{- toYaml .Values.instances | nindent 4 }}
   {{- else }}
   instances:
     - name: {{ default "instance1" .Values.instanceName | quote }}
@@ -42,7 +41,7 @@ spec:
       image: {{ .Values.imagePgBackRest | quote }}
       {{- end }}
       {{- if .Values.pgBackRestConfig }}
-{{ toYaml .Values.pgBackRestConfig | indent 6 }}
+        {{- toYaml .Values.pgBackRestConfig | nindent 6 }}
       {{- else if .Values.multiBackupRepos }}
       configuration:
       - secret:
@@ -136,26 +135,22 @@ spec:
       image: {{ .Values.imagePgBouncer | quote }}
       {{- end }}
       {{- if .Values.pgBouncerConfig }}
-{{ toYaml .Values.pgBouncerConfig | indent 6 }}
+        {{- toYaml .Values.pgBouncerConfig | nindent 6 }}
       {{- else }}
       replicas: {{ .Values.pgBouncerReplicas }}
       {{- end }}
   {{- end }}
   {{- if .Values.patroni }}
-  patroni:
-{{ toYaml .Values.patroni | indent 4 }}
+  patroni: {{- toYaml .Values.patroni | nindent 4 }}
   {{- end }}
   {{- if .Values.users }}
-  users:
-{{ toYaml .Values.users | indent 4 }}
+  users: {{- toYaml .Values.users | nindent 4 }}
   {{- end }}
   {{- if .Values.service }}
-  service:
-{{ toYaml .Values.service | indent 4 }}
+  service: {{- toYaml .Values.service | nindent 4 }}
   {{- end }}
   {{- if .Values.dataSource }}
-  dataSource:
-{{ toYaml .Values.dataSource | indent 4 }}
+  dataSource: {{- toYaml .Values.dataSource | nindent 4 }}
   {{- end }}
   {{- if .Values.databaseInitSQL }}
   databaseInitSQL:
@@ -166,15 +161,13 @@ spec:
   imagePullPolicy: {{ .Values.imagePullPolicy | quote }}
   {{- end }}
   {{- if .Values.imagePullSecrets }}
-  imagePullSecrets:
-{{ toYaml .Values.imagePullSecrets | indent 4 }}
+  imagePullSecrets: {{- toYaml .Values.imagePullSecrets | nindent 4 }}
   {{- end }}
   {{- if .Values.disableDefaultPodScheduling }}
   disableDefaultPodScheduling: true
   {{- end }}
   {{- if .Values.metadata }}
-  metadata:
-{{ toYaml .Values.metadata | indent 4 }}
+  metadata: {{- toYaml .Values.metadata | nindent 4 }}
   {{- end }}
   {{- if .Values.monitoring }}
   monitoring:
@@ -182,7 +175,7 @@ spec:
       exporter:
         image: {{ default "" .Values.imageExporter | quote }}
         {{- if .Values.monitoringConfig }}
-{{ toYaml .Values.monitoringConfig | indent 8 }}
+          {{- toYaml .Values.monitoringConfig | nindent 8 }}
         {{- end }}
   {{- end }}
   {{- if .Values.shutdown }}
@@ -196,8 +189,7 @@ spec:
     port: {{ .Values.standby.port }}
   {{- end }}
   {{- if .Values.supplementalGroups }}
-  supplementalGroups:
-{{ toYaml .Values.supplementalGroups | indent 4 }}
+  supplementalGroups: {{- toYaml .Values.supplementalGroups | nindent 4 }}
   {{- end }}
   {{- if .Values.openshift }}
   openshift: true
@@ -205,10 +197,8 @@ spec:
   openshift: false
   {{- end }}
   {{- if .Values.customTLSSecret }}
-  customTLSSecret:
-{{ toYaml .Values.customTLSSecret | indent 4 }}
+  customTLSSecret: {{- toYaml .Values.customTLSSecret | nindent 4 }}
   {{- end }}
   {{- if .Values.customReplicationTLSSecret }}
-  customReplicationTLSSecret:
-{{ toYaml .Values.customReplicationTLSSecret | indent 4 }}
+  customReplicationTLSSecret: {{- toYaml .Values.customReplicationTLSSecret | nindent 4 }}
   {{- end }}
